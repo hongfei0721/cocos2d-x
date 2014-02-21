@@ -102,7 +102,7 @@ public:
      */
     virtual ~TMXLayerInfo();
 
-    void setProperties(ValueMap properties);
+    void setProperties(ValueMap &properties);
     ValueMap& getProperties();
 
     ValueMap           _properties;

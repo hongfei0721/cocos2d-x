@@ -62,7 +62,7 @@ ValueMap& TMXLayerInfo::getProperties()
 {
     return _properties;
 }
-void TMXLayerInfo::setProperties(ValueMap var)
+void TMXLayerInfo::setProperties(ValueMap& var)
 {
     _properties = var;
 }
