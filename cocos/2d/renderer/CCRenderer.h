@@ -65,6 +65,8 @@ struct RenderStackElement
     ssize_t currentIndex;
 };
 
+/* Class reponsible for the rendering in cocos2d
+ */
 class Renderer
 {
 public:
@@ -85,6 +87,15 @@ public:
     
     int createRenderQueue();
     void render();
+
+    /* returns the number of drawn batches in the last frame */
+    ssize_t getDrawnBatches() const { return _drawnBatches; }
+    /* RenderCommands (except) QuadCommand should update this value */
+    void addDrawnBatches(ssize_t number) { _drawnBatches += number; };
+    /* returns the number of drawn triangles in the last frame */
+    ssize_t getDrawnVertices() const { return _drawnVertices; }
+    /* RenderCommands (except) QuadCommand should update this value */
+    void addDrawnVertices(ssize_t number) { _drawnVertices += number; };
 
 protected:
 
@@ -107,7 +118,7 @@ protected:
     std::stack<RenderStackElement> _renderStack;
     std::vector<RenderQueue> _renderGroups;
 
-    uint32_t _lastMaterialID;
+    uint64_t _lastMaterialID;
 
     std::vector<QuadCommand*> _batchedQuadCommands;
 
@@ -119,6 +130,10 @@ protected:
     int _numQuads;
     
     bool _glViewAssigned;
+
+    // stats
+    ssize_t _drawnBatches;
+    ssize_t _drawnVertices;
     
 #if CC_ENABLE_CACHE_TEXTURE_DATA
     EventListenerCustom* _cacheTextureListener;

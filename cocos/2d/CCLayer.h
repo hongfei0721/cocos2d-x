@@ -30,14 +30,13 @@ THE SOFTWARE.
 
 #include "CCNode.h"
 #include "CCProtocols.h"
-#include "CCArray.h"
+#include "CCEventTouch.h"
 #ifdef EMSCRIPTEN
 #include "CCGLBufferedNode.h"
 #endif // EMSCRIPTEN
 
 #include "CCEventKeyboard.h"
 #include "renderer/CCCustomCommand.h"
-#include "renderer/CCQuadCommand.h"
 
 NS_CC_BEGIN
 
@@ -172,8 +171,8 @@ protected:
     void _addTouchListener();
 
     CC_DEPRECATED_ATTRIBUTE void addTouchListener() { _addTouchListener();};
-    CC_DEPRECATED_ATTRIBUTE int executeScriptTouchHandler(EventTouch::EventCode eventType, Touch* touch);
-    CC_DEPRECATED_ATTRIBUTE int executeScriptTouchesHandler(EventTouch::EventCode eventType, const std::vector<Touch*>& touches);
+    CC_DEPRECATED_ATTRIBUTE int executeScriptTouchHandler(EventTouch::EventCode eventType, Touch* touch, Event* event);
+    CC_DEPRECATED_ATTRIBUTE int executeScriptTouchesHandler(EventTouch::EventCode eventType, const std::vector<Touch*>& touches, Event* event);
 
     bool _touchEnabled;
     bool _accelerometerEnabled;
@@ -266,7 +265,7 @@ public:
     //
     // Overrides
     //
-    virtual void draw() override;
+    virtual void draw(Renderer *renderer, const kmMat4 &transform, bool transformUpdated) override;
     virtual void onDraw();
     
     virtual void setContentSize(const Size & var) override;

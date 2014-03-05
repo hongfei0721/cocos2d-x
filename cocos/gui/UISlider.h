@@ -29,14 +29,14 @@ THE SOFTWARE.
 
 NS_CC_BEGIN
 
-namespace gui {
+namespace ui {
 
 typedef enum
 {
     SLIDER_PERCENTCHANGED
 }SliderEventType;
 
-typedef void (Object::*SEL_SlidPercentChangedEvent)(Object*,SliderEventType);
+typedef void (Ref::*SEL_SlidPercentChangedEvent)(Ref*,SliderEventType);
 #define sliderpercentchangedselector(_SELECTOR) (SEL_SlidPercentChangedEvent)(&_SELECTOR)
 
 /**
@@ -77,6 +77,8 @@ public:
      */
     void setScale9Enabled(bool able);
     
+    bool isScale9Enabled();
+    
     /**
      * Sets capinsets for slider, if slider is using scale9 renderer.
      *
@@ -91,12 +93,16 @@ public:
      */
     void setCapInsetsBarRenderer(const Rect &capInsets);
     
+    const Rect& getCapInsetsBarRenderer();
+    
     /**
      * Sets capinsets for slider, if slider is using scale9 renderer.
      *
      * @param capInsets    capinsets for slider
      */
     void setCapInsetProgressBarRebderer(const Rect &capInsets);
+    
+    const Rect& getCapInsetsProgressBarRebderer();
     
     /**
      * Load textures for slider ball.
@@ -164,7 +170,7 @@ public:
     /**
      * Add call back function called when slider's percent has changed to slider.
      */
-    void addEventListenerSlider(Object* target,SEL_SlidPercentChangedEvent selector);
+    void addEventListenerSlider(Ref* target,SEL_SlidPercentChangedEvent selector);
     
     virtual bool onTouchBegan(Touch *touch, Event *unusedEvent) override;
     virtual void onTouchMoved(Touch *touch, Event *unusedEvent) override;
@@ -221,7 +227,7 @@ protected:
     Rect _capInsetsBarRenderer;
     Rect _capInsetsProgressBarRenderer;
 
-    Object*       _sliderEventListener;
+    Ref*       _sliderEventListener;
     SEL_SlidPercentChangedEvent    _sliderEventSelector;
     TextureResType _barTexType;
     TextureResType _progressBarTexType;

@@ -29,7 +29,7 @@ THE SOFTWARE.
 
 NS_CC_BEGIN
 
-namespace gui {
+namespace ui {
 
 /**
  *  @js NA
@@ -41,7 +41,7 @@ public:
     UICCTextField();
     ~UICCTextField();
     
-    virtual void onEnter();
+    virtual void onEnter() override;
     
     // static
     static UICCTextField* create(const char *placeholder, const char *fontName, float fontSize);
@@ -94,7 +94,7 @@ typedef enum
     TEXTFIELD_EVENT_DELETE_BACKWARD,
 }TextFiledEventType;
 
-typedef void (Object::*SEL_TextFieldEvent)(Object*, TextFiledEventType);
+typedef void (Ref::*SEL_TextFieldEvent)(Ref*, TextFiledEventType);
 #define textfieldeventselector(_SELECTOR) (SEL_TextFieldEvent)(&_SELECTOR)
 
 /** class UITextField : public Widget
@@ -108,10 +108,14 @@ public:
     virtual ~TextField();
     static TextField* create();
     void setTouchSize(const Size &size);
+    Size getTouchSize();
     void setText(const std::string& text);
     void setPlaceHolder(const std::string& value);
+    const std::string& getPlaceHolder();
     void setFontSize(int size);
+    int getFontSize();
     void setFontName(const std::string& name);
+    const std::string& getFontName();
     virtual void didNotSelectSelf();
     const std::string& getStringValue();
     virtual bool onTouchBegan(Touch *touch, Event *unusedEvent) override;
@@ -122,6 +126,7 @@ public:
     void setPasswordEnabled(bool enable);
     bool isPasswordEnabled();
     void setPasswordStyleText(const char* styleText);
+    const char* getPasswordStyleText();
     virtual void update(float dt) override;
     bool getAttachWithIME();
     void setAttachWithIME(bool attach);
@@ -131,7 +136,7 @@ public:
     void setInsertText(bool insertText);
     bool getDeleteBackward();
     void setDeleteBackward(bool deleteBackward);
-    void addEventListenerTextField(Object* target, SEL_TextFieldEvent selecor);
+    void addEventListenerTextField(Ref* target, SEL_TextFieldEvent selecor);
 
     virtual void setAnchorPoint(const Point &pt) override;
     
@@ -162,7 +167,7 @@ protected:
     float _touchHeight;
     bool _useTouchArea;
     
-    Object* _textFieldEventListener;
+    Ref* _textFieldEventListener;
     SEL_TextFieldEvent _textFieldEventSelector;
     
     std::string _passwordStyleText;
