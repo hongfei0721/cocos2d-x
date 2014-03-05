@@ -28,11 +28,8 @@ THE SOFTWARE.
 
 #import "CCApplication.h"
 #import <Cocoa/Cocoa.h>
-#include <algorithm>
 #include "platform/CCFileUtils.h"
-#include "CCGeometry.h"
 #include "CCDirector.h"
-#import "CCDirectorCaller.h"
 #include "CCGLView.h"
 
 NS_CC_BEGIN
