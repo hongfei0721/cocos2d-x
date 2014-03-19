@@ -1,0 +1,5 @@
+
+--------------------------------
+-- @module MenuItemAtlasFont
+
+return nil
